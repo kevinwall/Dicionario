@@ -1,5 +1,6 @@
 #include "Dicionario.hpp"
 #include <vector>
+#include <algorithm>
 
 template < typename Key, typename Data, typename KeyComparator>
 bool DAL<Key, Data, KeyComparator>::insert ( const Key & _newKey , const Data & _newInfo )

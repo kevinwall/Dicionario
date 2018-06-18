@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+using namespace std;
+
 template < typename Key, typename Data, typename KeyComparator>
 class DAL 
 {
@@ -65,6 +67,28 @@ class DAL
 				
 			return _os;
 		}
+};
+
+template < typename Key, typename Data, typename KeyComparator>
+class DSAL : public DAL < Key, Data, KeyComparator>
+{
+	protected:		
+		const static int SIZE = 50;
+		int _search( const Key & _x ) const;
+		
+	public:	
+		DSAL ( int _MaxSz = SIZE ) : DAL<Key, Data, KeyComparator>( _MaxSz ) {};
+		virtual ~DSAL(){};
+
+		bool insert ( const Key & _newKey , const Data & _newInfo ); // Insere na lista 
+		Key min ( ) const; // Recupera a menor chave do dicion´ario .
+		Key max ( ) const; // Recupera a maior chave do dicion´ario .
+
+		// Recupera em _y a chave sucessora a _x , se existir ( true ).
+		bool sucessor ( const Key & _x , Key & _y ) const;
+		// Recupera em _y a chave antecessora a _x , se existir ( true ).
+		bool predecessor ( const Key & _x , Key & _y ) const;
+		
 };
 #include "Dicionario.inl"
 

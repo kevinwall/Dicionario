@@ -117,11 +117,13 @@ int main()
 		std::cout<<"O predecessor da chave : "<<sucess<<" é: "<<pred<<std::endl;
 
 		std::cout<<teste;
+
+		std::cout<<std::endl;
 	}
 
 	{//Teste para ver se o metodo insert funciona corretamente.
 
-		bool aux = teste_DSAL.insert(3256757, "Olá");
+		bool aux = teste_DSAL.insert(3256757, "Dados aleatórios");
 
 		teste_DSAL.insert(3257, "Dados 1");
 

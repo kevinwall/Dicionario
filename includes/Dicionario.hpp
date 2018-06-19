@@ -11,15 +11,15 @@ class DAL
 	protected:
 		
 		struct NodeAL 
-		{ // Estrutura do n´o , representando o par chave - informa¸c~ao .
-			Key id; // A chave ´e um inteiro simples .
-			Data info ; // A informa¸c~ao ´e uma cadeia de caracteres .
+		{
+			Key id; 
+			Data info ; 
 		};
 
-		static const size_t SIZE =50; // Tamanho default da lista .
-		size_t mi_Length ; // Comprimento atual da lista .
-		size_t mi_Capacity ; // Capacidade m´axima de armazenamento .
-		NodeAL *mpt_Data ; // ´Area de armazenamento : vetor alocado dinamicamente .
+		static const size_t SIZE =50; // Tamanho default da lista.
+		size_t mi_Length ; // Tamanho lógico da lista.
+		size_t mi_Capacity ; // Tamanho maximo da lista.
+		NodeAL *mpt_Data ; // Área de armazenamento : vetor alocado dinamicamente.
 
 		//Key _search ( const Key & _x ) const; // M´etodo de busca auxiliar .
 
@@ -35,15 +35,15 @@ class DAL
 			delete [] mpt_Data ; 
 		}
 		
-		bool insert ( const Key & _newKey , const Data & _newInfo ); // Insere na lista .
+		bool insert ( const Key & _newKey , const Data & _newInfo ); // Insere na lista.
 
-		bool remove ( const Key & _x , Data & _s ); // Remove da lista .
+		bool remove ( const Key & _x , Data & _s ); // Remove da lista.
 		
-		bool search ( const Key & _x , Data & _s ) const; // Busca publica .
+		bool search ( const Key & _x , Data & _s ) const; // Busca pública.
 
-		Key min ( ) const; // Recupera a menor chave do dicion´ario .
+		Key min ( ) const; // Recupera a menor chave do dicionário.
 
-		Key max ( ) const; // Recupera a maior chave do dicion´ario .
+		Key max ( ) const; // Recupera a maior chave do dicionário.
 
 		// Recupera em _y a chave sucessora a _x , se existir ( true ).
 		bool sucessor ( const Key & _x , Key & _y ) const;
@@ -51,7 +51,7 @@ class DAL
 		// Recupera em _y a chave antecessora a _x , se existir ( true ).
 		bool predecessor ( const Key & _x , Key & _y ) const;
 
-		//! Sends back to the output stream an ascii representation for the list .
+		// Operador << sobrecarregado para facilitar a impressão da lista.
 		inline friend
 		std::ostream & operator<<( std::ostream & _os , const DAL & _oList ) 
 		{

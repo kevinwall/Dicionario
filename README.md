@@ -4,7 +4,41 @@
 
 # Métodos suportados: #
 
- TODO: inserir lista de métodos.
+## Dicionario não ordenado: ##
+
+- insert (Insere uma nova entrada caso a chave não for duplicada);
+
+- remove (Recupera uma informação do dicionário baseada em sua chave e logo após a remove da lista)
+
+- search (Busca um elemento na lista e o recupera)
+
+- min (Recupera a menor chave da lista)
+
+- max (Recupera a maior chave da lista)
+
+- sucessor (Recupera a chave imediatamente maior do que a chave dada (caso exista))
+
+- predecessor (Recupera a chave imediatamente menor do que a chave dada (caso exista))
+
+- operador << (Método friend de std::ostream utilizado para imprimir o dicionário)
+
+## Dicionario ordenado: ##
+
+- insert (Insere uma nova entrada caso a chave não for duplicada);
+
+- remove (Recupera uma informação do dicionário baseada em sua chave e logo após a remove da lista)
+
+- search (Busca um elemento na lista e o recupera)
+
+- min (Recupera a menor chave da lista)
+
+- max (Recupera a maior chave da lista)
+
+- sucessor (Recupera a chave imediatamente maior do que a chave dada (caso exista))
+
+- predecessor (Recupera a chave imediatamente menor do que a chave dada (caso exista))
+
+- operador << (Método friend de std::ostream utilizado para imprimir o dicionário)
 
 # Como utilizar: #
 

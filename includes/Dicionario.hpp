@@ -51,6 +51,15 @@ class DAL
 		// Recupera em _y a chave antecessora a _x , se existir ( true ).
 		bool predecessor ( const Key & _x , Key & _y ) const;
 
+		// Verifica de o dicionário está vazio ou não.
+		bool empty() const;
+
+		// Retorna a capacidade maxima do dicionário.
+		size_t capacity() const;
+
+		// Retorna o tamanho lógico do dicionário.
+		size_t size() const;
+
 		// Operador << sobrecarregado para facilitar a impressão da lista.
 		inline friend
 		std::ostream & operator<<( std::ostream & _os , const DAL & _oList ) 

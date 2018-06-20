@@ -44,7 +44,7 @@
 
  Caso esteja em uma distribuição baseada em linux, basta acessar a pasta do projeto com o seu terminal e digitar o comando "make" para gerar o executável.
 
- Logo após disso, basta digitar ./bin/nome_do_executável
+ Logo após disso, basta digitar ./Driver_Dicionario
 
 # Autoria: #
 

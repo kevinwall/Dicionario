@@ -5,13 +5,13 @@
 template < typename Key, typename Data, typename KeyComparator>
 bool DAL<Key, Data, KeyComparator>::insert ( const Key & _newKey , const Data & _newInfo )
 {
-	if(mi_Length < mi_Capacity)
+	if(mi_Length < mi_Capacity-2) //Verifica se há espaço no dicionário para inserir o novo elemento.
 	{
 		size_t i;
 
-		for(i = 0; i < mi_Length; i++)
+		for(i = 0; i < mi_Length; i++) //Percorre o dicionário atrás de um espaço para inserir a nova informação
 		{
-			if(mpt_Data[i].id == _newKey)
+			if(mpt_Data[i].id == _newKey)//Verifica se não há chaves duplicadas.
 			{
 				return false;
 			}
@@ -32,15 +32,15 @@ bool DAL<Key, Data, KeyComparator>::remove ( const Key & _x , Data & _s )
 {
 	size_t i;
 
-	for( i = 0; i < mi_Length; i++)
+	for( i = 0; i < mi_Length; i++) // Percore o dicionário atrás da chave desejada
 	{
-		if(mpt_Data[i].id == _x)
+		if(mpt_Data[i].id == _x) 
 		{
-			_s = mpt_Data[i].info;
+			_s = mpt_Data[i].info; // Recupera a chave que será removida.
 
 			NodeAL aux;
 
-			for(auto j{i+1}; j < mi_Length; j++)
+			for(auto j{i+1}; j < mi_Length; j++) // Move os valores subsequentes a chave retirada para "fechar o buraco"
 			{
 				aux = mpt_Data[j-1];
 
@@ -49,7 +49,7 @@ bool DAL<Key, Data, KeyComparator>::remove ( const Key & _x , Data & _s )
 				mpt_Data[j] = aux;
 			}
 
-			mi_Length--;
+			mi_Length--; // reduzindo o tamanho lógico.
 
 			return true;
 		}
@@ -63,11 +63,11 @@ bool DAL<Key, Data, KeyComparator>::search ( const Key & _x , Data & _s ) const
 {
 	size_t i;
 
-	for( i = 0; i < mi_Length; i++)
+	for( i = 0; i < mi_Length; i++) // Percorre o dicionário buscando a chave desejada.
 	{
 		if(mpt_Data[i].id == _x)
 		{
-			_s = mpt_Data[i].info;
+			_s = mpt_Data[i].info; // Recupera a chave buscada, caso exista.
 
 			return true;
 		}
@@ -85,11 +85,11 @@ Key DAL<Key, Data, KeyComparator>::min ( ) const
 
 	KeyComparator comp;
 
-	for( i = 1; i < mi_Length; i++)
+	for( i = 1; i < mi_Length; i++) // Percorre o dicionário todo atrás do mínino (se existir).
 	{
-		if(comp(mpt_Data[i].id, minimo))
+		if(comp(mpt_Data[i].id, minimo)) // Função de comparação passada por template lhs < rhs.
 		{
-			minimo = mpt_Data[i].id;
+			minimo = mpt_Data[i].id; 
 		}
 	}
 
@@ -105,9 +105,9 @@ Key DAL<Key, Data, KeyComparator>::max ( ) const
 
 	KeyComparator comp;
 
-	for( i = 1; i < mi_Length; i++)
+	for( i = 1; i < mi_Length; i++)// Similar ao minimo, mas agora buscando o maior valor.
 	{
-		if(comp(maximo, mpt_Data[i].id))
+		if(comp(maximo, mpt_Data[i].id)) 
 		{
 			maximo = mpt_Data[i].id;
 		}
@@ -125,7 +125,7 @@ bool DAL<Key, Data, KeyComparator>::sucessor ( const Key & _x , Key & _y ) const
 
 	KeyComparator comp;
 
-	for(i = 0; i < mi_Length; i++)
+	for(i = 0; i < mi_Length; i++) // BUsca todas as chaves maiores que _x e guarda em um vector.
 	{
 		if(comp(_x, mpt_Data[i].id))
 		{
@@ -135,7 +135,7 @@ bool DAL<Key, Data, KeyComparator>::sucessor ( const Key & _x , Key & _y ) const
 
 	if(v.empty())
 	{
-		return false;
+		return false; //Caso o vetor seja vazio, não há sucessor
 	}
 
 	auto j = v.begin();
@@ -144,7 +144,7 @@ bool DAL<Key, Data, KeyComparator>::sucessor ( const Key & _x , Key & _y ) const
 
 	j++;
 
-	for(; j < v.end(); j++)
+	for(; j < v.end(); j++) // Procura dentre as chaves armazenadas no vetor, a menor delas.
 	{
 		if(comp(*j, suce))
 		{
@@ -166,7 +166,7 @@ bool DAL<Key, Data, KeyComparator>::predecessor ( const Key & _x , Key & _y ) co
 
 	KeyComparator comp;
 
-	for(i = 0; i < mi_Length; i++)
+	for(i = 0; i < mi_Length; i++) // Similar ao sucessor, busca todas as chaves menores que _x e insere no vetor
 	{
 		if(comp(mpt_Data[i].id, _x))
 		{
@@ -176,7 +176,7 @@ bool DAL<Key, Data, KeyComparator>::predecessor ( const Key & _x , Key & _y ) co
 
 	if(v.empty())
 	{
-		return false;
+		return false; //Caso o vetor esteja vazio, não há predescessor.
 	}
 
 	auto j = v.begin();
@@ -185,7 +185,7 @@ bool DAL<Key, Data, KeyComparator>::predecessor ( const Key & _x , Key & _y ) co
 
 	j++;
 
-	for(; j < v.end(); j++)
+	for(; j < v.end(); j++) //Percorre o vetor de valores menores que _x atrás do maior dentre eles.
 	{
 		if(comp(suce, *j))
 		{
@@ -196,6 +196,24 @@ bool DAL<Key, Data, KeyComparator>::predecessor ( const Key & _x , Key & _y ) co
 	_y = suce;
 
 	return true;
+}
+
+template < typename Key, typename Data, typename KeyComparator>
+bool DAL<Key, Data, KeyComparator>::empty() const
+{
+	return mi_Length == 0;
+}
+
+template < typename Key, typename Data, typename KeyComparator>
+size_t DAL<Key, Data, KeyComparator>::capacity() const
+{
+	return mi_Capacity;
+}
+
+template < typename Key, typename Data, typename KeyComparator>
+size_t DAL<Key, Data, KeyComparator>::size() const
+{
+	return mi_Length;
 }
 
 template< typename Key, typename Data, typename KeyComparator> 

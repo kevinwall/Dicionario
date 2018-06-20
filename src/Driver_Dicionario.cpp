@@ -99,7 +99,7 @@ int main()
 
 		teste.sucessor(chave, sucess);
 
-		std::cout<<"O sucessor da chave : "<<chave<<" é: "<<sucess<<std::endl;
+		//std::cout<<"O sucessor da chave : "<<chave<<" é: "<<sucess<<std::endl;
 
 		std::cout<<teste;
 
@@ -110,7 +110,7 @@ int main()
 
 		int pred;
 
-		int sucess = 3;
+		int sucess = 0;
 
 		teste.predecessor(sucess, pred);
 
@@ -197,6 +197,7 @@ int main()
 
 		std::cout<<teste_DSAL;
 	}
+
 
 	return 0;
 }

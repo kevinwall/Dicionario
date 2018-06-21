@@ -12,7 +12,7 @@ struct Comparadora
 int main()
 {
 	
-	DAL<int, std::string, Comparadora > teste;
+	DAL<int, std::string, Comparadora > teste(3);
 	DSAL<int, std::string, Comparadora > teste_DSAL;
 
 	std::string aux_2;
@@ -97,9 +97,9 @@ int main()
 
 		int sucess;
 
-		teste.sucessor(chave, sucess);
+		teste.successor(chave, sucess);
 
-		//std::cout<<"O sucessor da chave : "<<chave<<" é: "<<sucess<<std::endl;
+		std::cout<<"O sucessor da chave : "<<chave<<" é: "<<sucess<<std::endl;
 
 		std::cout<<teste;
 
@@ -110,7 +110,7 @@ int main()
 
 		int pred;
 
-		int sucess = 0;
+		int sucess = 3;
 
 		teste.predecessor(sucess, pred);
 
@@ -120,6 +120,8 @@ int main()
 
 		std::cout<<std::endl;
 	}
+
+	std::cout<<"TESTE DSAL --------------------------------------------------------------"<<std::endl;
 
 	{//Teste para ver se o metodo insert funciona corretamente.
 
@@ -176,7 +178,7 @@ int main()
 
 		int sucess;
 
-		teste_DSAL.sucessor(chave, sucess);
+		teste_DSAL.successor(chave, sucess);
 
 		std::cout<<"O sucessor da chave : "<<chave<<" é: "<<sucess<<std::endl;
 

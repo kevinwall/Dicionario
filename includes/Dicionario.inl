@@ -1,11 +1,12 @@
 #include "Dicionario.hpp"
 #include <vector>
 #include <algorithm>
+#include <stdexcept>
 
 template < typename Key, typename Data, typename KeyComparator>
 bool DAL<Key, Data, KeyComparator>::insert ( const Key & _newKey , const Data & _newInfo )
 {
-	if(mi_Length < mi_Capacity-2) //Verifica se há espaço no dicionário para inserir o novo elemento.
+	if(mi_Length < mi_Capacity) //Verifica se há espaço no dicionário para inserir o novo elemento.
 	{
 		size_t i;
 
@@ -16,8 +17,8 @@ bool DAL<Key, Data, KeyComparator>::insert ( const Key & _newKey , const Data & 
 				return false;
 			}
 		}
-		mpt_Data[mi_Length].id = _newKey;
-		mpt_Data[mi_Length].info = _newInfo;
+		mpt_Data[i].id = _newKey;
+		mpt_Data[i].info = _newInfo;
 
 		mi_Length++;
 
@@ -79,6 +80,12 @@ bool DAL<Key, Data, KeyComparator>::search ( const Key & _x , Data & _s ) const
 template < typename Key, typename Data, typename KeyComparator>
 Key DAL<Key, Data, KeyComparator>::min ( ) const
 {
+
+	if(empty())
+	{
+		throw std::out_of_range("Não é possível achar o min numa lista vazia");
+	}
+
 	size_t i;
 
 	Key minimo = mpt_Data[0].id;
@@ -99,6 +106,12 @@ Key DAL<Key, Data, KeyComparator>::min ( ) const
 template < typename Key, typename Data, typename KeyComparator>
 Key DAL<Key, Data, KeyComparator>::max ( ) const
 {
+
+	if(empty())
+	{
+		throw std::out_of_range("Não é possível achar o max numa lista vazia");
+	}
+
 	size_t i;
 
 	Key maximo = mpt_Data[0].id;
@@ -117,7 +130,7 @@ Key DAL<Key, Data, KeyComparator>::max ( ) const
 }
 
 template < typename Key, typename Data, typename KeyComparator>
-bool DAL<Key, Data, KeyComparator>::sucessor ( const Key & _x , Key & _y ) const
+bool DAL<Key, Data, KeyComparator>::successor ( const Key & _x , Key & _y ) const
 {
 	std::vector<Key> v;
 
@@ -135,7 +148,7 @@ bool DAL<Key, Data, KeyComparator>::sucessor ( const Key & _x , Key & _y ) const
 
 	if(v.empty())
 	{
-		return false; //Caso o vetor seja vazio, não há sucessor
+		return false; //Caso o vetor seja vazio, não há successor
 	}
 
 	auto j = v.begin();
@@ -166,7 +179,7 @@ bool DAL<Key, Data, KeyComparator>::predecessor ( const Key & _x , Key & _y ) co
 
 	KeyComparator comp;
 
-	for(i = 0; i < mi_Length; i++) // Similar ao sucessor, busca todas as chaves menores que _x e insere no vetor
+	for(i = 0; i < mi_Length; i++) // Similar ao successor, busca todas as chaves menores que _x e insere no vetor
 	{
 		if(comp(mpt_Data[i].id, _x))
 		{
@@ -278,7 +291,7 @@ template< typename Key, typename Data, typename KeyComparator>
 	}
 	
 	template < typename Key, typename Data, typename KeyComparator>
-	bool DSAL<Key, Data, KeyComparator>:: sucessor( const Key & _x, Key & _y ) const{
+	bool DSAL<Key, Data, KeyComparator>:: successor( const Key & _x, Key & _y ) const{
 		
 		int i = _search(_x);
 

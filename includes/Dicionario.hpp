@@ -5,7 +5,7 @@
 
 using namespace std;
 
-template < typename Key, typename Data, typename KeyComparator>
+template < typename Key, typename Data, typename KeyComparator = std::less<Key>>
 class DAL 
 {
 	protected:
@@ -46,7 +46,7 @@ class DAL
 		Key max ( ) const; // Recupera a maior chave do dicionário.
 
 		// Recupera em _y a chave sucessora a _x , se existir ( true ).
-		bool sucessor ( const Key & _x , Key & _y ) const;
+		bool successor ( const Key & _x , Key & _y ) const;
 
 		// Recupera em _y a chave antecessora a _x , se existir ( true ).
 		bool predecessor ( const Key & _x , Key & _y ) const;
@@ -65,7 +65,7 @@ class DAL
 		std::ostream & operator<<( std::ostream & _os , const DAL & _oList ) 
 		{
 			
-			for ( size_t i = 0 ; i < _oList.mi_Length ; ++ i )
+			for ( size_t i = 0 ; i < _oList.mi_Length; ++ i )
 			{	
 				_os << "[ ";
 				_os << "{id: " << _oList . mpt_Data [i ]. id << ", info : "
@@ -78,7 +78,7 @@ class DAL
 		}
 };
 
-template < typename Key, typename Data, typename KeyComparator>
+template < typename Key, typename Data, typename KeyComparator = std::less<Key>>
 class DSAL : public DAL < Key, Data, KeyComparator>
 {
 	protected:		
@@ -94,7 +94,7 @@ class DSAL : public DAL < Key, Data, KeyComparator>
 		Key max ( ) const; // Recupera a maior chave do dicion´ario .
 
 		// Recupera em _y a chave sucessora a _x , se existir ( true ).
-		bool sucessor ( const Key & _x , Key & _y ) const;
+		bool successor ( const Key & _x , Key & _y ) const;
 		// Recupera em _y a chave antecessora a _x , se existir ( true ).
 		bool predecessor ( const Key & _x , Key & _y ) const;
 		

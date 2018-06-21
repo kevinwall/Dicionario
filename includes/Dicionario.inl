@@ -6,13 +6,16 @@
 template < typename Key, typename Data, typename KeyComparator>
 bool DAL<Key, Data, KeyComparator>::insert ( const Key & _newKey , const Data & _newInfo )
 {
+
+	KeyComparator comp;
+
 	if(mi_Length < mi_Capacity) //Verifica se há espaço no dicionário para inserir o novo elemento.
 	{
 		size_t i;
 
 		for(i = 0; i < mi_Length; i++) //Percorre o dicionário atrás de um espaço para inserir a nova informação
 		{
-			if(mpt_Data[i].id == _newKey)//Verifica se não há chaves duplicadas.
+			if(not comp(mpt_Data[i].id, _newKey) and not comp(_newKey, mpt_Data[i].id))//Verifica se não há chaves duplicadas.
 			{
 				return false;
 			}
@@ -33,9 +36,11 @@ bool DAL<Key, Data, KeyComparator>::remove ( const Key & _x , Data & _s )
 {
 	size_t i;
 
+	KeyComparator comp;
+
 	for( i = 0; i < mi_Length; i++) // Percore o dicionário atrás da chave desejada
 	{
-		if(mpt_Data[i].id == _x) 
+		if(not comp(mpt_Data[i].id, _x) and not comp(_x, mpt_Data[i].id)) 
 		{
 			_s = mpt_Data[i].info; // Recupera a chave que será removida.
 
@@ -64,9 +69,11 @@ bool DAL<Key, Data, KeyComparator>::search ( const Key & _x , Data & _s ) const
 {
 	size_t i;
 
+	KeyComparator comp;
+
 	for( i = 0; i < mi_Length; i++) // Percorre o dicionário buscando a chave desejada.
 	{
-		if(mpt_Data[i].id == _x)
+		if(not comp(mpt_Data[i].id, _x) and not comp(_x, mpt_Data[i].id))
 		{
 			_s = mpt_Data[i].info; // Recupera a chave buscada, caso exista.
 
@@ -342,3 +349,20 @@ template< typename Key, typename Data, typename KeyComparator>
 		return -1;
 	
 	}
+
+template < typename Key, typename Data, typename KeyComparator>
+bool DSAL<Key, Data, KeyComparator>::search ( const Key & _x , Data & _s ) const
+{
+	int i;
+
+	i = _search( _x);
+
+	if(i == -1)
+	{
+		return false;
+	}
+
+	_s = this->mpt_Data[i].info;
+
+	return true;
+}

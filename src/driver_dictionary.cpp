@@ -264,18 +264,30 @@ int main ( void )
 
     {
         // Testing insert.
+        //std::cout<<"Entrei do DSAL"<<std::endl;
         DSAL<int, std::string> dict(3);
 
         // testing the regular insert
+        //std::cout<<"1"<<std::endl;
         assert( dict.insert( 1, "AAA" ) );
+        //std::cout<<dict;
+        //std::cout<<"2"<<std::endl;
         assert( dict.insert( 2, "BBB" ) );
+        //std::cout<<dict;
 
         // dicting the insert failure for duplicate keys.
+        //std::cout<<"3"<<std::endl;
         assert( false == dict.insert( 2, "BBB" ) );
 
         // dicting the insert for overflow check.
+       // std::cout<<"4"<<std::endl;
+        //std::cout<<dict;
         assert( dict.insert( 3, "CCC" ) );
+       // std::cout<<dict;
+        //std::cout<<"5"<<std::endl;
         assert( dict.insert( 4, "DDD" ) == false );
+
+       // std::cout<<"Passei do primeiro teste"<<std::endl;
     }
 
     {
@@ -309,7 +321,7 @@ int main ( void )
         // retrieve itens
         for ( const auto & e : table )
         {
-            std::cout<<dict<<std::endl;
+            //std::cout<<dict<<std::endl;
             assert( dict.search( e.key, result ) );
             assert( result == e.data );
         }
@@ -396,9 +408,9 @@ int main ( void )
         // insert all itens first.
         for ( const auto & e : table )
         {
-            std::cout<<e.key<<std::endl;
+            //std::cout<<e.key<<std::endl;
             assert( dict.insert( e.key, e.data ) );
-            std::cout<<dict<<std::endl;
+            //std::cout<<dict<<std::endl;
         }
 
         assert( dict.min() == 1 );

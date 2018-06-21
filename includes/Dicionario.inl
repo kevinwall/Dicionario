@@ -246,7 +246,7 @@ bool DSAL<  Key,  Data,  KeyComparator> ::insert( const Key & _newKey , const Da
 				return false;
 			}
 
-			size_t i, pos = 0;
+			size_t i, pos = this->mi_Length;
 			KeyComparator comp;
 
 			for(i = 0 ; i < this->mi_Length; i++)
@@ -254,6 +254,7 @@ bool DSAL<  Key,  Data,  KeyComparator> ::insert( const Key & _newKey , const Da
 				if(comp(_newKey, this->mpt_Data[i].id))
 				{
 					pos = i;
+					//std::cout<<pos<<std::endl;
 					break;
 				}
 			}
@@ -268,10 +269,28 @@ bool DSAL<  Key,  Data,  KeyComparator> ::insert( const Key & _newKey , const Da
 			//Key aux_k2;
 			//Data aux_d2;
 
-			for(j = this->mi_Length; j <= pos + 1; j--)
+			//std::cout<<"Cheguei no for"<<std::endl;
+			//std::cout<<this->mi_Length<<std::endl;
+
+			for(j = this->mi_Length; j >= pos + 1; j--)
 			{
-				this->mpt_Data[j].id = this->mpt_Data[j-1].id;
-				this->mpt_Data[j].info = this->mpt_Data[j-1].info;
+
+				if(j == this->mi_Capacity)
+				{
+					this->mpt_Data[j - 1].id = this->mpt_Data[j - 2].id;
+					this->mpt_Data[j - 1].info = this->mpt_Data[j - 2].info;
+				}
+				else
+				{
+					//std::cout<<"Entrei no for"<<std::endl;
+					//std::cout<<"Valor de J: "<<j<<std::endl;
+					//std::cout<<"Valor de pos: "<<pos<<std::endl;
+					this->mpt_Data[j].id = this->mpt_Data[j -1].id;
+					//std::cout<<"Valor em pos: "<<this->mpt_Data[pos].id<<std::endl;
+					this->mpt_Data[j].info = this->mpt_Data[j - 1].info;
+				}
+
+				
 			}
 
 			this->mpt_Data[pos].id = _newKey;

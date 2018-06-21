@@ -129,8 +129,9 @@ int main()
 
 		std::cout<<teste_DSAL;
 		std::cout<<std::endl;
-		
+
 		teste_DSAL.insert(3257, "Dados 1");
+		std::cout<<"Tamanho: "<<teste_DSAL.size()<<std::endl;
 
 		if(aux == true)
 		{

@@ -237,51 +237,57 @@ size_t DAL<Key, Data, KeyComparator>::size() const
 }
 
 template< typename Key, typename Data, typename KeyComparator> 
-	bool DSAL<  Key,  Data,  KeyComparator> ::insert( const Key & _newKey , const Data & _newInfo){
-		
-			if(this->mi_Length == this-> mi_Capacity || _search(_newKey) != -1){
+bool DSAL<  Key,  Data,  KeyComparator> ::insert( const Key & _newKey , const Data & _newInfo)
+{
+		if(this->mi_Length < this->mi_Capacity)
+		{
+			if(_search(_newKey) != -1)
+			{
 				return false;
 			}
 
+			size_t i, pos = 0;
 			KeyComparator comp;
-			Key aux;
 
-			int pos = 0;
-			int posicao = -1;
-
-			while( pos < (int)this-> mi_Length){
-				aux = this->mpt_Data[pos].id;
-				if(comp(aux,_newKey)){
-					posicao = pos;
+			for(i = 0 ; i < this->mi_Length; i++)
+			{
+				if(comp(_newKey, this->mpt_Data[i].id))
+				{
+					pos = i;
+					break;
 				}
-				++pos;
 			}
 
-			if( posicao == (int)this->mi_Length-1){
-				this->mpt_Data[this->mi_Length].id = _newKey;
-				this->mpt_Data[this->mi_Length].info = _newKey;
-				++(this->mi_Length);
-				return true;
-			}else if( posicao == -1){
-				for ( int i = (int)this->mi_Length; i > posicao+1; --i){
-					this->mpt_Data[i].id = this->mpt_Data[i-1].id;
-					this->mpt_Data[i].info = this->mpt_Data[i-1].info;
-				}
+			size_t j;
 
-				this->mpt_Data[posicao+1].id = _newKey;
-				this->mpt_Data[posicao+1].info = _newInfo;
-				++(this->mi_Length);
-				return true;
+			this->mi_Length++;
+
+			//Key aux_k;
+			//Data aux_d;
+
+			//Key aux_k2;
+			//Data aux_d2;
+
+			for(j = this->mi_Length; j <= pos + 1; j--)
+			{
+				this->mpt_Data[j].id = this->mpt_Data[j-1].id;
+				this->mpt_Data[j].info = this->mpt_Data[j-1].info;
 			}
 
-			return false;
-		}
+			this->mpt_Data[pos].id = _newKey;
+			this->mpt_Data[pos].info = _newInfo;
+
+			return true;
+		}	
+
+		return false;
+}
 
 	template < typename Key, typename Data, typename KeyComparator>
 	Key DSAL<Key, Data, KeyComparator>::min( ) const {
 		
 		if(this->mi_Length == 0){
-			cout << " Empty Dictionary ";
+			throw std::out_of_range("Não é possível achar o min numa lista vazia");
 		}
 
 		return this->mpt_Data[0].id;
@@ -291,7 +297,7 @@ template< typename Key, typename Data, typename KeyComparator>
 	Key DSAL<Key, Data, KeyComparator>::max( ) const {
 
 		if(this->mi_Length == 0){
-			cout << " Empty Dictionary ";
+			throw std::out_of_range("Não é possível achar o min numa lista vazia");
 		}
 
 		return this->mpt_Data[(this->mi_Length)-1].id;
@@ -366,3 +372,65 @@ bool DSAL<Key, Data, KeyComparator>::search ( const Key & _x , Data & _s ) const
 
 	return true;
 }
+
+/*
+template< typename Key, typename Data, typename KeyComparator> 
+	bool DSAL<  Key,  Data,  KeyComparator> ::insert( const Key & _newKey , const Data & _newInfo){
+		
+			if(this->mi_Length == this-> mi_Capacity || _search(_newKey) != -1){
+				return false;
+			}
+
+			KeyComparator comp;
+			Key aux;
+
+			int pos = 0;
+			int posicao = -1;
+
+			while( pos < (int)this-> mi_Length)
+			{
+				aux = this->mpt_Data[pos].id;
+				if(comp(aux,_newKey)){
+					posicao = pos;
+				}
+				++pos;
+			}
+
+			if( posicao == (int)this->mi_Length-1)
+			{
+				this->mpt_Data[this->mi_Length].id = _newKey;
+				this->mpt_Data[this->mi_Length].info = _newInfo;
+				++(this->mi_Length);
+				return true;
+			}
+			else if( posicao == -1)
+			{
+				for ( int i = (int)this->mi_Length; i > posicao+1; --i)
+				{
+					this->mpt_Data[i].id = this->mpt_Data[i-1].id;
+					this->mpt_Data[i].info = this->mpt_Data[i-1].info;
+				}
+
+				this->mpt_Data[posicao+1].id = _newKey;
+				this->mpt_Data[posicao+1].info = _newInfo;
+				(this->mi_Length)++;
+				return true;
+			}
+			else
+			{
+				this->mi_Length++;
+
+				int j = (int)this->mi_Length;
+
+				for(; j >= pos+1; j--)
+				{
+					this->mpt_Data[j] = this->mpt_Data[j-1]; 
+				}
+
+				this->mpt_Data[pos + 1].id = _newKey;
+				this->mpt_Data[pos + 1].info = _newInfo;
+			}
+
+			return false;
+		}
+*/

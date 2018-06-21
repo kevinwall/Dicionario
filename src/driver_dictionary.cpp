@@ -309,6 +309,7 @@ int main ( void )
         // retrieve itens
         for ( const auto & e : table )
         {
+            std::cout<<dict<<std::endl;
             assert( dict.search( e.key, result ) );
             assert( result == e.data );
         }
@@ -395,7 +396,9 @@ int main ( void )
         // insert all itens first.
         for ( const auto & e : table )
         {
+            std::cout<<e.key<<std::endl;
             assert( dict.insert( e.key, e.data ) );
+            std::cout<<dict<<std::endl;
         }
 
         assert( dict.min() == 1 );

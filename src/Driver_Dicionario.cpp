@@ -125,8 +125,11 @@ int main()
 
 	{//Teste para ver se o metodo insert funciona corretamente.
 
-		bool aux = teste_DSAL.insert(3256757, "Dados aleatórios");
+		bool aux = teste_DSAL.insert(3256757, "D");
 
+		std::cout<<teste_DSAL;
+		std::cout<<std::endl;
+		
 		teste_DSAL.insert(3257, "Dados 1");
 
 		if(aux == true)

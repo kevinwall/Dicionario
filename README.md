@@ -48,6 +48,6 @@
 
 # Autoria: #
 
-Todo os códigos aqui implementados foram produzidos por [Giovanne da Silva Santos](https://github.com/GSDante) (Email de contato: <giovannedssantos@gmail.com>) e por [Kevin Wallacy de Souza Maciel](giovannedssantos@gmail.com) (Email de contato: <kevinwall@ufrn.edu.br>)
+Todo os códigos aqui implementados foram produzidos por [Giovanne da Silva Santos](https://github.com/GSDante) (Email de contato: <giovannedssantos@gmail.com>) e por [Kevin Wallacy de Souza Maciel](https://github.com/kevinwall) (Email de contato: <kevinwall@ufrn.edu.br>)
 
 &copy; IMD/UFRN 2018-2019
